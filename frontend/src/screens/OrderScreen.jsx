@@ -1,14 +1,6 @@
 import { useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
-import {
-  Row,
-  Col,
-  ListGroup,
-  Image,
-  Form,
-  Button,
-  Card,
-} from "react-bootstrap";
+import { Row, Col, ListGroup, Image, Button, Card } from "react-bootstrap";
 import { toast } from "react-toastify";
 import { useSelector } from "react-redux";
 import { PayPalButtons, usePayPalScriptReducer } from "@paypal/react-paypal-js";
@@ -52,7 +44,7 @@ const OrderScreen = () => {
         paypalDispatch({
           type: "resetOptions",
           value: {
-            "client-id": paypalDispatch.clientId,
+            "client-id": payPal.clientId,
             currency: "USD",
           },
         });
@@ -107,7 +99,7 @@ const OrderScreen = () => {
 
   const deliverOrderHandler = async () => {
     try {
-      await deliverOrder(orderId);
+      await deliverOrder(orderId).unwrap();
       refetch();
       toast.success("Order delivered");
     } catch (err) {
@@ -222,12 +214,12 @@ const OrderScreen = () => {
                     <Loader />
                   ) : (
                     <div>
-                      {/* <Button
+                      <Button
                         onClick={onApproveTest}
                         style={{ marginBottom: "10px" }}
                       >
                         Test Pay Order
-                      </Button> */}
+                      </Button>
 
                       <div>
                         <PayPalButtons

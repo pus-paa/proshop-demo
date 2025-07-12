@@ -70,7 +70,7 @@ const getOrderById = asyncHandler(async (req, res) => {
 //@route PUT/api/orders/:id/pay
 //@access private
 const updateOrderToPaid = asyncHandler(async (req, res) => {
-  const order = await Order.findById(req.params._id);
+  const order = await Order.findById(req.params.id);
 
   if (order) {
     order.isPaid = true;
@@ -82,9 +82,9 @@ const updateOrderToPaid = asyncHandler(async (req, res) => {
       email_address: req.body.payer.email_address,
     };
 
-    const updateOrder = await order.save();
+    const updatedOrder = await order.save();
 
-    res.status(200).json(updateOrder);
+    res.status(200).json(updatedOrder);
   } else {
     res.status(404);
     throw new Error("Order not found");
@@ -92,7 +92,7 @@ const updateOrderToPaid = asyncHandler(async (req, res) => {
 });
 
 //@desc Update order to delivered
-//@route GET/api/orders/:id/deliver
+//@route PUT/api/orders/:id/deliver
 //@access private
 const updateOrderToDelivered = asyncHandler(async (req, res) => {
   const order = await Order.findById(req.params.id);
@@ -103,7 +103,7 @@ const updateOrderToDelivered = asyncHandler(async (req, res) => {
 
     const updatedOrder = await order.save();
 
-    res.status(200).json(updateOrder);
+    res.status(200).json(updatedOrder);
   } else {
     req.status(404);
     throw new Error("Order not found");
