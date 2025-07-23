@@ -13,6 +13,7 @@ frontend/00
 # production
 /build
 
+frontend/build
 # misc
 .DS_Store
 .env
